@@ -21,5 +21,7 @@ namespace NGitLab
         IBranchClient Branches { get; }
 
         IProjectHooksClient ProjectHooks { get; }
+
+        IProjectVariablesClient ProjectVariables { get; }
     }
 }
