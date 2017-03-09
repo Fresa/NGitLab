@@ -7,33 +7,35 @@ namespace NGitLab.Impl
     public class API
     {
         public readonly string APIToken;
+        private readonly IHttpRequestorFactory _httpRequestorFactory;
         private readonly string _hostUrl;
         private const string APINamespace = "/api/v3";
 
-        public API(string hostUrl, string apiToken)
+        public API(string hostUrl, string apiToken, IHttpRequestorFactory httpRequestorFactory)
         {
             _hostUrl = hostUrl.EndsWith("/") ? hostUrl.Replace("/$", "") : hostUrl;
             APIToken = apiToken;
+            _httpRequestorFactory = httpRequestorFactory;
         }
         
-        public HttpRequestor Get()
+        public IHttpRequestor Get()
         {
-            return new HttpRequestor(this, MethodType.Get);
+            return _httpRequestorFactory.Create(this, MethodType.Get);
         }
 
-        public HttpRequestor Post()
+        public IHttpRequestor Post()
         {
-            return new HttpRequestor(this, MethodType.Post);
+            return _httpRequestorFactory.Create(this, MethodType.Post);
         }
 
-        public HttpRequestor Put()
+        public IHttpRequestor Put()
         {
-            return new HttpRequestor(this, MethodType.Put);
+            return _httpRequestorFactory.Create(this, MethodType.Put);
         }
         
-        public HttpRequestor Delete()
+        public IHttpRequestor Delete()
         {
-            return new HttpRequestor(this, MethodType.Delete);
+            return _httpRequestorFactory.Create(this, MethodType.Delete);
         }
 
         public Uri GetAPIUrl(string tailAPIUrl)

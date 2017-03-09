@@ -41,11 +41,21 @@
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http">
+      <HintPath>..\..\..\ReleaseNoteGenerator\packages\Microsoft.Net.Http.2.0.20505.0\lib\net40\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+      <HintPath>..\..\..\ReleaseNoteGenerator\packages\Microsoft.Net.Http.2.0.20505.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GitLabClient.cs" />
+    <Compile Include="IHttpRequestorFactory.cs" />
+    <Compile Include="Impl\HttpClientHttpRequestor.cs" />
     <Compile Include="IBranchClient.cs" />
     <Compile Include="IFilesClient.cs" />
     <Compile Include="IIssueClient.cs" />
@@ -54,13 +64,19 @@
     <Compile Include="Impl\API.cs" />
     <Compile Include="Impl\BranchClient.cs" />
     <Compile Include="IMergeRequestCommentClient.cs" />
+    <Compile Include="Impl\Enumerable.cs" />
+    <Compile Include="IBasicHttpRequestor.cs" />
+    <Compile Include="IHttpRequestor.cs" />
+    <Compile Include="Impl\HttpClientHttpRequestorFactory.cs" />
+    <Compile Include="Impl\JsonError.cs" />
+    <Compile Include="Impl\WebRequestHttpRequestorFactory.cs" />
     <Compile Include="Impl\IssueClient.cs" />
     <Compile Include="Impl\MergeRequestClient.cs" />
     <Compile Include="Impl\MergeRequestCommentClient.cs" />
     <Compile Include="Impl\MergeRequestCommitClient.cs" />
+    <Compile Include="Impl\NameValueCollectionExtensions.cs" />
     <Compile Include="Impl\ProjectHooksClient.cs" />
     <Compile Include="Impl\FileClient.cs" />
-    <Compile Include="Impl\HttpRequestor.cs" />
     <Compile Include="Impl\MethodType.cs" />
     <Compile Include="Impl\ProjectClient.cs" />
     <Compile Include="Impl\RepositoryClient.cs" />
@@ -110,8 +126,11 @@
     <Compile Include="INamespaceClient.cs" />
     <Compile Include="Impl\NamespaceClient.cs" />
     <Compile Include="Models\NamespaceCreate.cs" />
+    <Compile Include="Impl\WebRequestHttpRequestor.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

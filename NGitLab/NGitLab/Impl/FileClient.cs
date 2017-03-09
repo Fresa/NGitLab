@@ -15,17 +15,17 @@ namespace NGitLab.Impl
 
         public void Create(FileUpsert file)
         {
-            _api.Post().With(file).Stream(_repoPath + "/files", s => { });
+            _api.Post().With(file).Stream(_repoPath + "/files", (s, headers) => { });
         }
 
         public void Update(FileUpsert file)
         {
-            _api.Put().With(file).Stream(_repoPath + "/files", s => { });
+            _api.Put().With(file).Stream(_repoPath + "/files", (s, headers) => { });
         }
 
         public void Delete(FileDelete file)
         {
-            _api.Delete().With(file).Stream(_repoPath + "/files", s => { });
+            _api.Delete().With(file).Stream(_repoPath + "/files", (s, headers) => { });
         }
     }
 }

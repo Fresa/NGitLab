@@ -4,7 +4,6 @@ namespace NGitLab
 {
     public class GitLabClient
     {
-
         private readonly API _api;
 
         public readonly IUserClient Users;
@@ -12,9 +11,9 @@ namespace NGitLab
         public readonly IIssueClient Issues;
         public readonly INamespaceClient Groups;
 
-        private GitLabClient(string hostUrl, string apiToken)
+        private GitLabClient(string hostUrl, string apiToken, IHttpRequestorFactory httpRequestorFactory)
         {
-            _api = new API(hostUrl, apiToken);
+            _api = new API(hostUrl, apiToken, httpRequestorFactory);
             Users = new UserClient(_api);
             Projects = new ProjectClient(_api);
             Issues = new IssueClient(_api);
@@ -23,7 +22,12 @@ namespace NGitLab
 
         public static GitLabClient Connect(string hostUrl, string apiToken)
         {
-            return new GitLabClient(hostUrl, apiToken);
+            return new GitLabClient(hostUrl, apiToken, new WebRequestHttpRequestorFactory());
+        }
+
+        public static GitLabClient Connect(string hostUrl, string apiToken, IHttpRequestorFactory httpRequestorFactory)
+        {
+            return new GitLabClient(hostUrl, apiToken, httpRequestorFactory);
         }
 
         public IRepositoryClient GetRepository(int projectId)

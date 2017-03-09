@@ -31,7 +31,7 @@ namespace NGitLab.Impl
 
         public void GetRawBlob(string sha, Action<Stream> parser)
         {
-            _api.Get().Stream(_repoPath + "/raw_blobs/" + sha, parser);
+            _api.Get().Stream(_repoPath + "/raw_blobs/" + sha, (stream, dictionary) => parser(stream));
         }
 
         public IEnumerable<Commit> Commits
